@@ -46,5 +46,11 @@ class Parking:
         self.emplacements[index] = self._DEFAULT[index]
 
     def show(self) -> None:
+        info = ''
         for i in range(self._LENGTH):
-            print("Emplacement n°" + str(i) + " status : " + self.emplacements[i])
+            info += "E. n°" + str(i) + " status : " + self.emplacements[i]
+            if (i + 1) % 3 == 0:
+                info += '\n'
+            else:
+                info += '\t'
+        print(info)

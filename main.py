@@ -20,23 +20,26 @@ def get_number_safely(prompt: str, a: int, b: int) -> int:
 
 
 def main() -> None:
-    parking = Parking()
-    while True:
-        print("Welcome to the level -1, what do you want to do?")
+    floors = (Parking(), Parking(), Parking())
+
+    for i in range(len(floors)):
+        print("Welcome to the level " + str(-i - 1) + ", what do you want to do?")
         print("1: Place a vehicle")
         print("2: Retrieve a vehicle\n")
 
         user_choice = get_number_safely("Enter the digit 1 or 2: ", 1, 2)
 
         if user_choice == 1:
-            emplacement = get_number_safely("Select the emplacement where you want to place the vehicle : ", 0, parking.length - 1)
-            parking.place_vehicle(emplacement)
+            emplacement = get_number_safely("Select the emplacement where you want to place the vehicle : ", 0,
+                                            floors[i].length - 1)
+            floors[i].place_vehicle(emplacement)
         else:
-            emplacement = get_number_safely("Select the emplacement where you want to retrieve the vehicle : ", 0, parking.length - 1)
-            parking.retrieve_vehicle(emplacement)
+            emplacement = get_number_safely("Select the emplacement where you want to retrieve the vehicle : ", 0,
+                                            floors[i].length - 1)
+            floors[i].retrieve_vehicle(emplacement)
 
         print()
-        parking.show()
+        floors[i].show()
         print()
 
 
