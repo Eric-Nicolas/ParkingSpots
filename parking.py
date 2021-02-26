@@ -4,14 +4,13 @@ __author__ = 'Eric-Nicolas'
 
 
 class Parking:
-    def __init__(self, length: int) -> None:
-        self._LENGTH = length
+    def __init__(self) -> None:
+        self._LENGTH = 27
         self._AVAILABLE = 'A'
         self._VEHICLE = 'V'  # contains a vehicle
         self._DISABLED = 'D'  # for disabled people
 
         self.emplacements = []
-
         for i in range(self._LENGTH):
             if i < 15:
                 self.emplacements.append(self._AVAILABLE)
@@ -19,6 +18,11 @@ class Parking:
                 self.emplacements.append(self._VEHICLE)
             else:
                 self.emplacements.append(self._DISABLED)
+        self._DEFAULT = self.emplacements
+
+    @property
+    def length(self) -> int:
+        return self._LENGTH
 
     def is_available(self, index: int) -> bool:
         if index < 0 or index >= self._LENGTH:
@@ -28,11 +32,19 @@ class Parking:
     def place_vehicle(self, index: int) -> None:
         if index < 0 or index >= self._LENGTH:
             raise IndexError
+        elif self.emplacements[index] == self._VEHICLE:
+            print("This emplacement is already occupied!")
+            return
         self.emplacements[index] = self._VEHICLE
 
-    def show_emplacements(self) -> None:
+    def retrieve_vehicle(self, index) -> None:
+        if index < 0 or index >= self._LENGTH:
+            raise IndexError
+        elif self.emplacements[index] != self._VEHICLE:
+            print("This emplacement is already available!")
+            return
+        self.emplacements[index] = self._DEFAULT[index]
+
+    def show(self) -> None:
         for i in range(self._LENGTH):
-            if self.is_available(i):
-                print("The emplacement n°" + str(i) + " is available.")
-            else:
-                print("The emplacement n°" + str(i) + " is not available.")
+            print("Emplacement n°" + str(i) + " status : " + self.emplacements[i])
